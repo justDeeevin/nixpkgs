@@ -361,10 +361,10 @@ in
       open = lib.mkOption {
         example = true;
         description = "Whether to enable the open source NVIDIA kernel module.";
-        type = lib.types.nullOr lib.types.bool;
-        default = if lib.versionOlder nvidia_x11.version "560" then false else null;
+        type = lib.types.bool;
+        default = lib.versionAtLeast nvidia_x11.version "560";
         defaultText = lib.literalExpression ''
-          if lib.versionOlder config.hardware.nvidia.package.version "560" then false else null
+          lib.versionAtLeast nvidia_x11.version "560"
         '';
       };
 
